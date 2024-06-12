@@ -20,7 +20,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+    'drf_yasg',
+
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -31,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -94,3 +99,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:8080',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'https://read-and-write.example.com',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
