@@ -1,12 +1,15 @@
-from django.urls import path
-from rest_framework.routers import DefaultRouter
+from django.urls import include, path
+from djoser.views import UserViewSet
+from rest_framework.routers import SimpleRouter
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from users.apps import UsersConfig
+app_name = 'users'
 
-app_name = UsersConfig.name
+users_router = SimpleRouter()
 
-router = DefaultRouter()
+users_router.register("users", UserViewSet, basename="users")
 
 urlpatterns = [
-
-] + router.urls
+    path("", include(users_router.urls)),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+]
