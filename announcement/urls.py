@@ -1,7 +1,5 @@
-from django.urls import include, path
-from djoser.views import UserViewSet
-from rest_framework.routers import SimpleRouter, DefaultRouter
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from announcement.views import AnnouncementCreateView, AnnouncementListView, AnnouncementRetrieveView, \
     AnnouncementUpdateView, AnnouncementDestroyView

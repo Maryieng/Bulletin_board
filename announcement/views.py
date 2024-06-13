@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from announcement.filter import AnnouncementFilter
 from announcement.models import Announcement
+from announcement.paginations import AnnouncementPaginator
 from announcement.serializers import AnnouncementSerializer
 
 
@@ -21,7 +22,7 @@ class AnnouncementListView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = AnnouncementFilter
     # permission_classes = [IsAuthenticated, IsOwner]
-    # pagination_class = HabitPaginator
+    pagination_class = AnnouncementPaginator
 
 
 class AnnouncementRetrieveView(generics.RetrieveAPIView):

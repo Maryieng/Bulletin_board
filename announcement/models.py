@@ -9,8 +9,9 @@ class Announcement(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название товара')
     price = models.IntegerField(verbose_name='Цена товара')
     description = models.TextField(max_length=300, verbose_name='Описание', **NULLABLE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
+    image = models.ImageField(upload_to='preview/', verbose_name='Изображение', **NULLABLE)
 
 
     def __str__(self) -> str:
@@ -26,7 +27,7 @@ class Review(models.Model):
 
     text = models.TextField(verbose_name='Текст', **NULLABLE)
     ad = models.ForeignKey(Announcement, on_delete=models.CASCADE, verbose_name="Объявление")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
 
 
