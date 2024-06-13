@@ -6,3 +6,4 @@ drf-yasg
 djangorestframework
 djoser
 djangorestframework-simplejwt
+django-filter
