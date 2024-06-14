@@ -5,39 +5,22 @@ from django.db import models
 NULLABLE = {'blank': True, 'null': True}
 
 
-class UserManager(BaseUserManager):
-    """ функция создания менеджера """
-
-    def create_user(self, email, first_name, last_name, phone, password=None):
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, first_name, password=None, **extra_fields):
         if not email:
-            raise ValueError('Users must have an email address')
-        user = self.model(
-            email=self.normalize_email(email),
-            first_name=first_name,
-            last_name=last_name,
-            phone=phone,
-            role="user"
-        )
-        user.is_active = True
+            raise ValueError("User must have an email")
+        email = self.normalize_email(email)
+        user = self.model(email=email, first_name=first_name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
-    def create_superuser(self, email, first_name, last_name, phone, password=None):
-        """ функция для создания суперпользователя — с ее помощью мы создаем админинстратора """
-
-        user = self.create_user(
-            email,
-            first_name=first_name,
-            last_name=last_name,
-            phone=phone,
-            password=password,
-            role="admin"
-        )
-
+    def create_superuser(self, email, first_name, password=None, **extra_fields):
+        user = self.create_user(email, first_name=first_name, password=password, **extra_fields)
+        user.is_active = True
+        user.is_admin = True
+        user.role = 'ADMIN'
         user.save(using=self._db)
-
         return user
 
 
@@ -49,6 +32,11 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True, verbose_name='Почта')
     phone = models.CharField(max_length=35, verbose_name='Телефон', **NULLABLE)
     is_active = models.BooleanField(default=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name", "phone", "role"]
 
     @property
     def is_superuser(self):
@@ -64,17 +52,10 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_admin
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', "role"]
-    objects = UserManager()
-
     @property
     def is_admin(self):
-        return self.role == UserRole.ADMIN
+        return self.role == 'ADMIN'
 
-    @property
-    def is_user(self):
-        return self.role == UserRoles.USER
 
     def __str__(self):
         return f"{self.email}"

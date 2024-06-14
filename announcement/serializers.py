@@ -11,6 +11,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
 
+    def create(self, validated_data):
+        """ привязка пользователя как владельца к новому отзыву """
+        user = self.context['request'].user
+        review = Review(**validated_data)
+        review.author = user
+        review.save()
+        return review
+
 
 
 class AnnouncementSerializer(serializers.ModelSerializer):
@@ -20,7 +28,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Announcement
-        fields = ['id', 'title', 'price', 'description', 'created_at', 'image', 'author', 'reviews', 'new_review']
+        fields = '__all__'
 
     def create(self, validated_data):
         new_review_data = validated_data.pop('new_review', None)
@@ -28,9 +36,3 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         if new_review_data:
             Review.objects.create(ad=announcement, text=new_review_data)
         return announcement
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        if 'new_review' in data:
-            data['new_review'] = data['new_review']
-        return data
