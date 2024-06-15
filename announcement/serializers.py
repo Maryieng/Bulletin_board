@@ -23,16 +23,21 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class AnnouncementSerializer(serializers.ModelSerializer):
     """ Сериализатор для модели объявления """
-    reviews = ReviewSerializer(many=True, read_only=True)
-    new_review = serializers.CharField(write_only=True, required=False)
+    reviews = serializers.SerializerMethodField()
 
     class Meta:
         model = Announcement
-        fields = '__all__'
+        fields = ['id', 'title', 'price', 'description', 'author', 'created_at', 'reviews']
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        return ReviewSerializer(reviews, many=True).data
 
     def create(self, validated_data):
-        new_review_data = validated_data.pop('new_review', None)
+        reviews_data = validated_data.pop('reviews', None)
         announcement = Announcement.objects.create(**validated_data)
-        if new_review_data:
-            Review.objects.create(ad=announcement, text=new_review_data)
+        if reviews_data:
+            for review_data in reviews_data:
+                Review.objects.create(announcement=announcement, **review_data)
+
         return announcement

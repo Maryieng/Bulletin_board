@@ -8,3 +8,7 @@ class IsOwner(BasePermission):
         if request.user == obj.user:
             return True
         return False
+
+class IsAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.is_admin

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -6,9 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from announcement.filter import AnnouncementFilter
 from announcement.models import Announcement, Review
 from announcement.paginations import AnnouncementPaginator
-from announcement.permissions import IsOwner
+from announcement.permissions import IsOwner, IsAdmin
 from announcement.serializers import AnnouncementSerializer, ReviewSerializer
-from users.models import CustomUserManager
 
 
 class AnnouncementCreateView(generics.CreateAPIView):
@@ -30,26 +28,26 @@ class AnnouncementRetrieveView(generics.RetrieveAPIView):
     """ детальная информация объявления """
     serializer_class = AnnouncementSerializer
     queryset = Announcement.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
 
 class AnnouncementUpdateView(generics.UpdateAPIView):
     """ изменение объявления """
     serializer_class = AnnouncementSerializer
     queryset = Announcement.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
 
 class AnnouncementDestroyView(generics.DestroyAPIView):
     """ удаление объявления """
     queryset = Announcement.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
 
 class ReviewCreateView(generics.CreateAPIView):
     """ создание отзыва """
-    serializer_class = Review
-    # permission_classes = [IsAuthenticated]
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ReviewListView(generics.ListAPIView):
@@ -57,27 +55,27 @@ class ReviewListView(generics.ListAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
     pagination_class = AnnouncementPaginator
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
     def get_queryset(self):
-        return Review.objects.filter(author=self.request.author)
+        return Review.objects.filter(author=self.request.user)
 
 
 class ReviewRetrieveView(generics.RetrieveAPIView):
     """ детальная информация отзыва """
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
 
 class ReviewUpdateView(generics.UpdateAPIView):
     """ изменение отзыва """
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
 
 
 class ReviewDestroyView(generics.DestroyAPIView):
     """ удаление Отзыва """
     queryset = Review.objects.all()
-    # permission_classes = [IsOwner, CustomUserManager]
+    permission_classes = [IsOwner, IsAdmin]
