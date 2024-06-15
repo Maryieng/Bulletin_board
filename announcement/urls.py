@@ -1,9 +1,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from announcement.views import AnnouncementCreateView, AnnouncementListView, AnnouncementRetrieveView, \
-    AnnouncementUpdateView, AnnouncementDestroyView, ReviewCreateView, ReviewListView, ReviewRetrieveView, \
-    ReviewUpdateView, ReviewDestroyView
+from announcement.views import (AnnouncementCreateView,
+                                AnnouncementDestroyView, AnnouncementListView,
+                                AnnouncementRetrieveView,
+                                AnnouncementUpdateView, ReviewCreateView,
+                                ReviewDestroyView, ReviewListView,
+                                ReviewRetrieveView, ReviewUpdateView)
 
 app_name = 'announcement'
 

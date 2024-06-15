@@ -1,10 +1,12 @@
 from django.db import models
+
 from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
 
 class Announcement(models.Model):
+    """ Модель объявления """
 
     title = models.CharField(max_length=200, verbose_name='Название товара')
     price = models.IntegerField(verbose_name='Цена товара')
@@ -12,7 +14,6 @@ class Announcement(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
     image = models.ImageField(upload_to='preview/', verbose_name='Изображение', **NULLABLE)
-
 
     def __str__(self) -> str:
         return f"Объявление: {self.title}"
@@ -24,12 +25,12 @@ class Announcement(models.Model):
 
 
 class Review(models.Model):
+    """ Модель отзыва """
 
     text = models.TextField(verbose_name='Текст', **NULLABLE)
     ad = models.ForeignKey(Announcement, on_delete=models.CASCADE, verbose_name="Объявление")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
-
 
     def __str__(self) -> str:
         return f"Отзыв к объявлению: {self.ad}"

@@ -6,6 +6,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class CustomUserManager(BaseUserManager):
+    """ Кастомная модель пользователя """
     def create_user(self, email, first_name, password=None, **extra_fields):
         if not email:
             raise ValueError("User must have an email")
@@ -25,6 +26,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+    """ Описание модели пользователя """
     username = None
     first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
@@ -56,10 +58,8 @@ class User(AbstractBaseUser):
     def is_admin(self):
         return self.role == 'ADMIN'
 
-
     def __str__(self):
         return f"{self.email}"
-
 
     class Meta:
         verbose_name = 'Пользователь'

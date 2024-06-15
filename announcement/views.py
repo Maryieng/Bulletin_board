@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from announcement.filter import AnnouncementFilter
 from announcement.models import Announcement, Review
 from announcement.paginations import AnnouncementPaginator
-from announcement.permissions import IsOwner, IsAdmin
+from announcement.permissions import IsAdmin, IsOwner
 from announcement.serializers import AnnouncementSerializer, ReviewSerializer
 
 
