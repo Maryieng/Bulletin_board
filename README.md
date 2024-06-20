@@ -76,18 +76,18 @@
  - Зайти в терминал
  - С помощью команды cd перейти в директорию, где будет находиться проект
  - Клонировать проект:
-   git clone git@github.com:Maryieng/Bulletin_board.git
+      git clone git@github.com:Maryieng/Bulletin_board.git
 
 Шаг 2: Настройка окружения
  - В директории проекта создать файл .env на основе .env.example
 
  - Записать в файл следующие настройки
-  SECRET_KEY_DJANGO = секретный код джанго
-  USER_DATABASES = имя пользователя в базе данных
-  PASSWORD_DATABASES = пароль пользователя в базе данных
-  CELERY_BROKER_URL = URL-адрес брокера сообщений
-  CELERY_RESULT_BACKEND = URL-адрес для хранения результатов выполнения задач Celery
-  POSTGRES_DB = название проекта в базе данных
+ 1. SECRET_KEY_DJANGO = секретный код джанго
+ 2. USER_DATABASES = имя пользователя в базе данных
+ 3. PASSWORD_DATABASES = пароль пользователя в базе данных
+ 4. CELERY_BROKER_URL = URL-адрес брокера сообщений
+ 5. CELERY_RESULT_BACKEND = URL-адрес для хранения результатов выполнения задач Celery
+ 6. POSTGRES_DB = название проекта в базе данных
 
 Шаг 3: Создание образа и запуск проекта
  - Настройки Докера
