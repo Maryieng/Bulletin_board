@@ -73,35 +73,35 @@
 Подготовка к работе с проектом
 
 Шаг 1: Клонирование проекта
-Зайти в терминал
-С помощью команды cd перейти в директорию, где будет находиться проект
-Клонировать проект:
-git clone git@github.com:Maryieng/Bulletin_board.git
+ - Зайти в терминал
+ - С помощью команды cd перейти в директорию, где будет находиться проект
+ - Клонировать проект:
+   git clone git@github.com:Maryieng/Bulletin_board.git
 
 Шаг 2: Настройка окружения
-В директории проекта создать файл .env на основе .env.example
+ - В директории проекта создать файл .env на основе .env.example
 
-Записать в файл следующие настройки
-SECRET_KEY_DJANGO = секретный код джанго
-USER_DATABASES = имя пользователя в базе данных
-PASSWORD_DATABASES = пароль пользователя в базе данных
-CELERY_BROKER_URL = URL-адрес брокера сообщений
-CELERY_RESULT_BACKEND = URL-адрес для хранения результатов выполнения задач Celery
-POSTGRES_DB = название проекта в базе данных
+ - Записать в файл следующие настройки
+  SECRET_KEY_DJANGO = секретный код джанго
+  USER_DATABASES = имя пользователя в базе данных
+  PASSWORD_DATABASES = пароль пользователя в базе данных
+  CELERY_BROKER_URL = URL-адрес брокера сообщений
+  CELERY_RESULT_BACKEND = URL-адрес для хранения результатов выполнения задач Celery
+  POSTGRES_DB = название проекта в базе данных
 
 Шаг 3: Создание образа и запуск проекта
-Настройки Докера
-Установка Подробное руководство по установке
-Проверка работоспособности докера docker run hello-world
-Команды для запуска docker-compose build- создать контейнеры докера
-docker-compose up- запустить контейнеры докера
-Доступ http://localhost:8000
+ - Настройки Докера
+ - Установка Подробное руководство по установке
+ - Проверка работоспособности докера docker run hello-world
+ - Команды для запуска docker-compose build- создать контейнеры докера
+ - docker-compose up- запустить контейнеры докера
+ - Доступ http://localhost:8000
 
 Шаг 4: Загрузка данных
-Выполнить команду
-docker-compose exec app python3 manage.py loaddata data.json
+ - Выполнить команду
+  docker-compose exec app python3 manage.py loaddata data.json
 
 Просмотр документации
-Swagger:
-http://localhost:8000/swagger/
+ - Swagger:
+  http://localhost:8000/swagger/
 
